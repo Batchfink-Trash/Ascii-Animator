@@ -44,9 +44,9 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpStrip = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +56,7 @@
             this.fpsClock = new System.Windows.Forms.Timer(this.components);
             this.frameBck = new System.Windows.Forms.Button();
             this.frameFwd = new System.Windows.Forms.Button();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.menuStrip.SuspendLayout();
@@ -205,32 +206,35 @@
             // 
             // exportToolStripMenuItem
             // 
+            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.batToolStripMenuItem,
+            this.pyToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
             this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
+            // batToolStripMenuItem
+            // 
+            this.batToolStripMenuItem.Name = "batToolStripMenuItem";
+            this.batToolStripMenuItem.Size = new System.Drawing.Size(103, 24);
+            this.batToolStripMenuItem.Text = ".bat";
+            this.batToolStripMenuItem.Click += new System.EventHandler(this.batToolStripMenuItem_Click);
+            // 
+            // pyToolStripMenuItem
+            // 
+            this.pyToolStripMenuItem.Name = "pyToolStripMenuItem";
+            this.pyToolStripMenuItem.Size = new System.Drawing.Size(103, 24);
+            this.pyToolStripMenuItem.Text = ".py";
             // 
             // editStrip
             // 
             this.editStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.undoToolStripMenuItem,
-            this.redoToolStripMenuItem,
             this.clearFrameToolStripMenuItem,
             this.clearAllToolStripMenuItem});
             this.editStrip.Name = "editStrip";
             this.editStrip.Size = new System.Drawing.Size(47, 24);
             this.editStrip.Text = "Edit";
-            // 
-            // undoToolStripMenuItem
-            // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
-            this.undoToolStripMenuItem.Text = "Undo";
-            // 
-            // redoToolStripMenuItem
-            // 
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
-            this.redoToolStripMenuItem.Text = "Redo";
             // 
             // clearFrameToolStripMenuItem
             // 
@@ -282,6 +286,7 @@
             // 
             // frameBck
             // 
+            this.frameBck.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.frameBck.Location = new System.Drawing.Point(433, 150);
             this.frameBck.Name = "frameBck";
             this.frameBck.Size = new System.Drawing.Size(105, 23);
@@ -299,6 +304,11 @@
             this.frameFwd.Text = ">>";
             this.frameFwd.UseVisualStyleBackColor = true;
             this.frameFwd.Click += new System.EventHandler(this.frameFwd_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "bat";
+            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
             // 
             // Form1
             // 
@@ -343,8 +353,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editStrip;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearFrameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpStrip;
@@ -357,6 +365,9 @@
         private System.Windows.Forms.Timer fpsClock;
         private System.Windows.Forms.Button frameBck;
         private System.Windows.Forms.Button frameFwd;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ToolStripMenuItem batToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pyToolStripMenuItem;
     }
 }
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Ascii_Animator
 {
@@ -15,6 +16,7 @@ namespace Ascii_Animator
         String[] frames = new String[10];
         int playCount = 0;
         bool playing = false;
+        string script;
 
         public Form1()
         {
@@ -29,7 +31,14 @@ namespace Ascii_Animator
 
         private void frameSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            frameEditor.Text = "";
+            try
+            {
+                frameEditor.Text = frames[frameSelector.SelectedIndex];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                frameSelector.SelectedIndex = 0;
+            }
         }
 
         private void playButton_Click(object sender, EventArgs e)
@@ -60,14 +69,14 @@ namespace Ascii_Animator
             try
             {
                 fpsClock.Interval = 1000 / animation.fps;
+                playing = true;
+                playButton.Text = "Stop";
+                fpsClock.Start();
             }
             catch (DivideByZeroException)
             {
                 MessageBox.Show("Enter an FPS value!", "Error!");
             }
-            playing = true;
-            playButton.Text = "Stop";
-            fpsClock.Start();
         }
 
         private void fpsClock_Tick(object sender, EventArgs e)
@@ -86,10 +95,12 @@ namespace Ascii_Animator
 
         private void frameFwd_Click(object sender, EventArgs e)
         {
-
             int currentFrame = Convert.ToInt32(frameSelector.SelectedItem) - 1;
-            frames[currentFrame] = frameEditor.Text;
-            frameSelector.SelectedIndex++;
+            if (currentFrame <= 8)
+            {
+                frames[currentFrame] = frameEditor.Text;
+                frameSelector.SelectedIndex++;
+            }
         }
 
         private void frameBck_Click(object sender, EventArgs e)
@@ -97,6 +108,41 @@ namespace Ascii_Animator
             int currentFrame = Convert.ToInt32(frameSelector.SelectedItem) - 1;
             frames[currentFrame] = frameEditor.Text;
             frameSelector.SelectedIndex--;
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //TODO
+        }
+
+        private void batToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Animation animation = new Animation(Convert.ToInt32(FpsBox.SelectedItem), frames);
+                script = SaveBat.construct(animation);
+                saveFile(script);
+
+            }
+            catch (DivideByZeroException)
+            {
+                MessageBox.Show("Enter an FPS value!", "Error!");
+            }
+        }
+
+        private void saveFile(string script)
+        {
+            saveFileDialog.ShowDialog();
+            
+        }
+
+        private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            if (saveFileDialog.FileName != "")
+            {
+                string name = saveFileDialog.FileName;
+                File.WriteAllText(name, script);
+            }
         }
     }
 }
