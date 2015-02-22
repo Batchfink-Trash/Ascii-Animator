@@ -44,8 +44,6 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.batToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.clearFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -206,26 +204,10 @@
             // 
             // exportToolStripMenuItem
             // 
-            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.batToolStripMenuItem,
-            this.pyToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
-            // 
-            // batToolStripMenuItem
-            // 
-            this.batToolStripMenuItem.Name = "batToolStripMenuItem";
-            this.batToolStripMenuItem.Size = new System.Drawing.Size(103, 24);
-            this.batToolStripMenuItem.Text = ".bat";
-            this.batToolStripMenuItem.Click += new System.EventHandler(this.batToolStripMenuItem_Click);
-            // 
-            // pyToolStripMenuItem
-            // 
-            this.pyToolStripMenuItem.Name = "pyToolStripMenuItem";
-            this.pyToolStripMenuItem.Size = new System.Drawing.Size(103, 24);
-            this.pyToolStripMenuItem.Text = ".py";
             // 
             // editStrip
             // 
@@ -308,6 +290,7 @@
             // saveFileDialog
             // 
             this.saveFileDialog.DefaultExt = "bat";
+            this.saveFileDialog.Filter = "Batch files (*.bat)|*.bat|Python Files (*.py)|*.py";
             this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
             // 
             // Form1
@@ -366,8 +349,6 @@
         private System.Windows.Forms.Button frameBck;
         private System.Windows.Forms.Button frameFwd;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        private System.Windows.Forms.ToolStripMenuItem batToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pyToolStripMenuItem;
     }
 }
 

@@ -112,34 +112,23 @@ namespace Ascii_Animator
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO
-        }
-
-        private void batToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Animation animation = new Animation(Convert.ToInt32(FpsBox.SelectedItem), frames);
-                script = SaveBat.construct(animation);
-                saveFile(script);
-
-            }
-            catch (DivideByZeroException)
-            {
-                MessageBox.Show("Enter an FPS value!", "Error!");
-            }
-        }
-
-        private void saveFile(string script)
-        {
             saveFileDialog.ShowDialog();
-            
         }
 
         private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
         {
+            Animation animation = new Animation(Convert.ToInt32(FpsBox.SelectedItem), frames);
             if (saveFileDialog.FileName != "")
             {
+                switch (saveFileDialog.FilterIndex)
+                {
+                    case 1:
+                        script = ExportFile.constructBat(animation);
+                        break;
+                    case 2:
+                        script = ExportFile.constructPy(animation);
+                        break;
+                }
                 string name = saveFileDialog.FileName;
                 File.WriteAllText(name, script);
             }
