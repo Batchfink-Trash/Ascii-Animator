@@ -42,7 +42,6 @@
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.clearFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +54,8 @@
             this.frameBck = new System.Windows.Forms.Button();
             this.frameFwd = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.saveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openDialog = new System.Windows.Forms.OpenFileDialog();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.menuStrip.SuspendLayout();
@@ -172,7 +173,6 @@
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem,
             this.exportToolStripMenuItem});
             this.fileStrip.Name = "fileStrip";
             this.fileStrip.Size = new System.Drawing.Size(44, 24);
@@ -181,31 +181,27 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(121, 24);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 24);
             this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(121, 24);
             this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
-            this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(121, 24);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
@@ -223,12 +219,14 @@
             this.clearFrameToolStripMenuItem.Name = "clearFrameToolStripMenuItem";
             this.clearFrameToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
             this.clearFrameToolStripMenuItem.Text = "Clear Frame";
+            this.clearFrameToolStripMenuItem.Click += new System.EventHandler(this.clearFrameToolStripMenuItem_Click);
             // 
             // clearAllToolStripMenuItem
             // 
             this.clearAllToolStripMenuItem.Name = "clearAllToolStripMenuItem";
             this.clearAllToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
             this.clearAllToolStripMenuItem.Text = "Clear All";
+            this.clearAllToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
             // 
             // helpStrip
             // 
@@ -293,9 +291,19 @@
             this.saveFileDialog.Filter = "Batch files (*.bat)|*.bat|Python Files (*.py)|*.py";
             this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
             // 
+            // saveDialog
+            // 
+            this.saveDialog.Filter = "Ascii animation files (*.ascii)|*.ascii";
+            this.saveDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveXmlDialog_FileOk);
+            // 
+            // openDialog
+            // 
+            this.openDialog.FileName = "openFileDialog1";
+            this.openDialog.Filter = "Ascii animation files (*.ascii)|*.ascii";
+            this.openDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openDialog_FileOk);
+            // 
             // Form1
             // 
-            this.AcceptButton = this.frameFwd;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.frameBck;
@@ -333,8 +341,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileStrip;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editStrip;
         private System.Windows.Forms.ToolStripMenuItem clearFrameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearAllToolStripMenuItem;
@@ -349,6 +355,9 @@
         private System.Windows.Forms.Button frameBck;
         private System.Windows.Forms.Button frameFwd;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveDialog;
+        private System.Windows.Forms.OpenFileDialog openDialog;
     }
 }
 

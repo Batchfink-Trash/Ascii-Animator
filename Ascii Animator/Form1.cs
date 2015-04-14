@@ -22,13 +22,10 @@ namespace Ascii_Animator
         {
             InitializeComponent();
             frameSelector.SelectedIndex = 0;
+            FpsBox.SelectedIndex = 0;
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("A program for making ascii animations, made by Batchfink. © 2015", "About");
-        }
-
+        //FUNCTIONALITY/FORM METHODS
         private void frameSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -45,7 +42,8 @@ namespace Ascii_Animator
         {
             if (playing == false)
             {
-                Animation animation = new Animation(Convert.ToInt32(FpsBox.SelectedItem), frames);
+                Animation animation = new Animation();
+                animation.InitAnimation(Convert.ToInt32(FpsBox.SelectedItem), frames);
                 play(animation);
             }
             else
@@ -110,14 +108,36 @@ namespace Ascii_Animator
             frameSelector.SelectedIndex--;
         }
 
+        //EDIT MENU METHODS
+        private void clearFrameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int currentFrame = Convert.ToInt32(frameSelector.SelectedItem) - 1;
+            frames[currentFrame] = "";
+            frameEditor.Text = frames[currentFrame];
+        }//Clear ONE frame
+
+        private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int currentFrame = Convert.ToInt32(frameSelector.SelectedItem) - 1;
+            for (int i = 0; i < 9; i++)
+            {
+                frames[i] = "";
+                frameEditor.Text = frames[i];
+            }
+            frameEditor.Text = frames[currentFrame];
+        }//Clear ALL frames
+
+        //FILE MENU METHODS
+
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog.ShowDialog();
-        }
+        }//Export menu
 
         private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            Animation animation = new Animation(Convert.ToInt32(FpsBox.SelectedItem), frames);
+            Animation animation = new Animation();
+            animation.InitAnimation(Convert.ToInt32(FpsBox.SelectedItem), frames);
             if (saveFileDialog.FileName != "")
             {
                 switch (saveFileDialog.FilterIndex)
@@ -132,6 +152,45 @@ namespace Ascii_Animator
                 string name = saveFileDialog.FileName;
                 File.WriteAllText(name, script);
             }
+        }//construct and export .bat/.py
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveDialog.ShowDialog();
+        }//Save menu
+
+        private void saveXmlDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            Animation animation = new Animation();
+            animation.InitAnimation(Convert.ToInt32(FpsBox.SelectedItem), frames);
+            if (saveDialog.FileName != "")
+            {
+                string name = saveDialog.FileName;
+                string xmlObject = ExportFile.save(animation);
+                File.WriteAllText(name, xmlObject);
+            }
+        }//Serialize and export xml file
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openDialog.ShowDialog();
+        }//Open menu
+
+        private void openDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            if (openDialog.FileName != "")
+            {
+                string name = openDialog.FileName;
+                Animation a = ExportFile.open(name);
+                Console.Write(a.fps);
+            }
+        }//Deserialize and open
+
+        //ABOUT METHODS
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("A program for making ascii animations, made by Batchfink. © 2015", "About");
         }
+
     }
 }

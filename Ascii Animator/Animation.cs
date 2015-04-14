@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Ascii_Animator
 {
-    class Animation
+    [Serializable]
+    public class Animation
     {
         public int fps;
         public string[] frames;
 
-        public Animation(int FPS, String[] Frames)
+        public void InitAnimation(int FPS, String[] Frames)
         {
             fps = FPS;
             frames = Frames;
         }
-
     }
 }
