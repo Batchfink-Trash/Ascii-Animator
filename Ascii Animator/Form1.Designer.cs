@@ -181,8 +181,9 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(121, 24);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.clearAllToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -240,8 +241,9 @@
             // openHelpToolStripMenuItem
             // 
             this.openHelpToolStripMenuItem.Name = "openHelpToolStripMenuItem";
-            this.openHelpToolStripMenuItem.Size = new System.Drawing.Size(150, 24);
+            this.openHelpToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.openHelpToolStripMenuItem.Text = "Open Help";
+            this.openHelpToolStripMenuItem.Click += new System.EventHandler(this.openHelpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -298,7 +300,6 @@
             // 
             // openDialog
             // 
-            this.openDialog.FileName = "openFileDialog1";
             this.openDialog.Filter = "Ascii animation files (*.ascii)|*.ascii";
             this.openDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openDialog_FileOk);
             // 
@@ -306,7 +307,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.frameBck;
             this.ClientSize = new System.Drawing.Size(682, 353);
             this.Controls.Add(this.frameFwd);
             this.Controls.Add(this.frameBck);
@@ -314,6 +314,7 @@
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.menuStrip);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.Name = "Form1";

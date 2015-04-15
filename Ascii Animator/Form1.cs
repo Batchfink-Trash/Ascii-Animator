@@ -151,6 +151,7 @@ namespace Ascii_Animator
                 }
                 string name = saveFileDialog.FileName;
                 File.WriteAllText(name, script);
+                this.Text = "Ascii Animator - " + name;
             }
         }//construct and export .bat/.py
 
@@ -168,6 +169,7 @@ namespace Ascii_Animator
                 string name = saveDialog.FileName;
                 string xmlObject = ExportFile.save(animation);
                 File.WriteAllText(name, xmlObject);
+                this.Text = "Ascii Animator - " + name;
             }
         }//Serialize and export xml file
 
@@ -178,18 +180,28 @@ namespace Ascii_Animator
 
         private void openDialog_FileOk(object sender, CancelEventArgs e)
         {
+            int currentFrame = Convert.ToInt32(frameSelector.SelectedItem) - 1;
             if (openDialog.FileName != "")
             {
                 string name = openDialog.FileName;
                 Animation a = ExportFile.open(name);
-                Console.Write(a.fps);
+                frames = a.frames;
+                frameEditor.Text = frames[currentFrame];
+                this.Text = "Ascii Animator - " + name;
             }
         }//Deserialize and open
 
         //ABOUT METHODS
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("A program for making ascii animations, made by Batchfink. © 2015", "About");
+            var aboutBox = new AboutBox();
+            aboutBox.Show();
+        }
+
+        private void openHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var help = new Help();
+            help.Show();
         }
 
     }
