@@ -12,7 +12,7 @@ namespace Ascii_Animator
         public int fps;
         public string[] frames;
 
-        public void InitAnimation(int FPS, String[] Frames)
+        public void InitAnimation(int FPS, string[] Frames)
         {
             fps = FPS;
             frames = Frames;

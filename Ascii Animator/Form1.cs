@@ -13,17 +13,29 @@ namespace Ascii_Animator
 {
     public partial class Form1 : Form
     {
-        String[] frames = new String[10];
+        string[] frames = new string[50];
         int playCount = 0;
         bool playing = false;
         string script;
+        string savePath;
 
-        public Form1()
+        public Form1(string file)
         {
             InitializeComponent();
             frameSelector.SelectedIndex = 0;
             FpsBox.SelectedIndex = 0;
+            if (file != string.Empty && Path.GetExtension(file).ToString() == ".ascii")
+            {
+                openOnDrop(file);
+            }
+            else if (file != string.Empty && Path.GetExtension(file).ToString() != ".ascii")
+            {
+                MessageBox.Show("Unknown file name!  Try .ascii instead", "File name error");
+            }
+            
         }
+
+
 
         //FUNCTIONALITY/FORM METHODS
         private void frameSelector_SelectedIndexChanged(object sender, EventArgs e)
@@ -81,7 +93,7 @@ namespace Ascii_Animator
         {
             playLbl.Text = "";
             playLbl.Text = frames[playCount];
-            if (playCount == 9)
+            if (playCount == 49)
             {
                 playCount = 0;
             }
@@ -94,7 +106,7 @@ namespace Ascii_Animator
         private void frameFwd_Click(object sender, EventArgs e)
         {
             int currentFrame = Convert.ToInt32(frameSelector.SelectedItem) - 1;
-            if (currentFrame <= 8)
+            if (currentFrame <= 50)
             {
                 frames[currentFrame] = frameEditor.Text;
                 frameSelector.SelectedIndex++;
@@ -191,6 +203,30 @@ namespace Ascii_Animator
             }
         }//Deserialize and open
 
+        private void openOnDrop(string path)
+        {
+            int currentFrame = Convert.ToInt32(frameSelector.SelectedItem) - 1;
+            string name = path;
+            Animation a = ExportFile.open(name);
+            frames = a.frames;
+            frameEditor.Text = frames[currentFrame];
+            this.Text = "Ascii Animator - " + name;
+        }
+
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Animation animation = new Animation();
+            animation.InitAnimation(Convert.ToInt32(FpsBox.SelectedItem), frames);
+            if (saveDialog.FileName != "")
+            {
+                string name = saveDialog.FileName;
+                savePath = name;
+                string xmlObject = ExportFile.save(animation);
+                File.WriteAllText(name, xmlObject);
+                this.Text = "Ascii Animator - " + name;
+            }
+        }
+
         //ABOUT METHODS
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -200,9 +236,10 @@ namespace Ascii_Animator
 
         private void openHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var help = new Help();
-            help.Show();
+            MessageBox.Show("You can work it out!", "It's obvious!");
         }
+
+        
 
     }
 }
