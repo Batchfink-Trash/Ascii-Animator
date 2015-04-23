@@ -54,7 +54,7 @@ namespace Ascii_Animator
             string script = "from time import sleep\nfrom os import system\n";
             for (int i = 0; i < animation.frames.Length; i++)
             {
-                script += "\nprint(\"" + animation.frames[i] + "\")\nsleep(" + fps + ")\nsystem(\"cls\")";
+                script += "\nprint(\"\"\"" + animation.frames[i] + "\"\"\")\nsleep(" + fps + ")\nsystem(\"cls\")";
             }
             Console.WriteLine(script);
             return (script);

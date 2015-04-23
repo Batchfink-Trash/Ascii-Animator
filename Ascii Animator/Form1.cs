@@ -167,7 +167,7 @@ namespace Ascii_Animator
             }
         }//construct and export .bat/.py
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveDialog.ShowDialog();
         }//Save menu
@@ -179,6 +179,7 @@ namespace Ascii_Animator
             if (saveDialog.FileName != "")
             {
                 string name = saveDialog.FileName;
+                savePath = name;
                 string xmlObject = ExportFile.save(animation);
                 File.WriteAllText(name, xmlObject);
                 this.Text = "Ascii Animator - " + name;
@@ -196,9 +197,11 @@ namespace Ascii_Animator
             if (openDialog.FileName != "")
             {
                 string name = openDialog.FileName;
+                savePath = name;
                 Animation a = ExportFile.open(name);
                 frames = a.frames;
                 frameEditor.Text = frames[currentFrame];
+                FpsBox.SelectedItem = a.fps.ToString();
                 this.Text = "Ascii Animator - " + name;
             }
         }//Deserialize and open
@@ -213,14 +216,13 @@ namespace Ascii_Animator
             this.Text = "Ascii Animator - " + name;
         }
 
-        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Animation animation = new Animation();
-            animation.InitAnimation(Convert.ToInt32(FpsBox.SelectedItem), frames);
-            if (saveDialog.FileName != "")
+            if (!savePath.Equals(string.Empty))
             {
-                string name = saveDialog.FileName;
-                savePath = name;
+                Animation animation = new Animation();
+                animation.InitAnimation(Convert.ToInt32(FpsBox.SelectedItem), frames);
+                string name = savePath;
                 string xmlObject = ExportFile.save(animation);
                 File.WriteAllText(name, xmlObject);
                 this.Text = "Ascii Animator - " + name;
