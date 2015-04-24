@@ -17,7 +17,7 @@ namespace Ascii_Animator
         int playCount = 0;
         bool playing = false;
         string script;
-        string savePath;
+        string savePath = "";
 
         public Form1(string file)
         {
@@ -218,7 +218,7 @@ namespace Ascii_Animator
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!savePath.Equals(string.Empty))
+            if (!savePath.Equals(""))
             {
                 Animation animation = new Animation();
                 animation.InitAnimation(Convert.ToInt32(FpsBox.SelectedItem), frames);
@@ -226,6 +226,10 @@ namespace Ascii_Animator
                 string xmlObject = ExportFile.save(animation);
                 File.WriteAllText(name, xmlObject);
                 this.Text = "Ascii Animator - " + name;
+            }
+            else
+            {
+                saveAsToolStripMenuItem_Click(this, EventArgs.Empty);
             }
         }
 
@@ -240,8 +244,5 @@ namespace Ascii_Animator
         {
             MessageBox.Show("You can work it out!", "It's obvious!");
         }
-
-        
-
     }
 }
