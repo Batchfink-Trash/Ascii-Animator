@@ -340,7 +340,7 @@
             // 
             this.frameFwd.Location = new System.Drawing.Point(541, 150);
             this.frameFwd.Name = "frameFwd";
-            this.frameFwd.Size = new System.Drawing.Size(105, 23);
+            this.frameFwd.Size = new System.Drawing.Size(110, 23);
             this.frameFwd.TabIndex = 3;
             this.frameFwd.Text = ">>";
             this.frameFwd.UseVisualStyleBackColor = true;

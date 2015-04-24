@@ -93,7 +93,7 @@ namespace Ascii_Animator
         {
             playLbl.Text = "";
             playLbl.Text = frames[playCount];
-            if (playCount == 49)
+            if (playCount == 49 || frames[playCount + 1] == string.Empty)
             {
                 playCount = 0;
             }
